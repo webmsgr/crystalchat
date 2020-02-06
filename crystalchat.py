@@ -22,3 +22,5 @@ from prompt_toolkit.widgets import (
 @click.command()
 def runclient():
     pass
+if __name__ == "__main__":
+    runclient()
