@@ -19,4 +19,6 @@ from prompt_toolkit.widgets import (
     TextArea,
 )
 # @TODO everything
-
+@click.command()
+def runclient():
+    pass
