@@ -19,3 +19,4 @@ from prompt_toolkit.widgets import (
     TextArea,
 )
 # @TODO everything
+print(input_dialog("What is your name?").run())
