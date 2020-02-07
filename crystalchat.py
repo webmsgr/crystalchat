@@ -40,15 +40,15 @@ def startloop(loop: asyncio.BaseEventLoop):
     loop.run_forever()
 # @TODO make server and client not a echo server
 # @BODY server is just a router. fix that plz
-async def process_code(server,pipe):
+async def process_code(server,pipe,qevent):
     with patch_stdout():
         do = True
         async with websockets.connect(server) as websocket:
-            while do:
+            while not qevent.is_set():
                 if pipe.poll():
                     data = pipe.recv()
                     if data.upper() == "!DISCONNECT":
-                        do = False
+                        qevent.set()
                         break
                     if data.strip() == "":
                         continue
@@ -114,7 +114,9 @@ def runclient():
     @kb.add("c-q", eager=True)
     def exitevent(event):
         q.put("!DISCONNECT")
+        eventquit.set()
         event.app.exit()
+        nloop.stop()
     app = Application(
         layout=Layout(root,focused_element=inputbox),
     key_bindings=kb,
@@ -139,7 +141,8 @@ def runclient():
     t = threading.Thread(target=startloop,args=(nloop,),daemon=True)
     t.start()
     serversoc, cl = Pipe()
-    asyncio.run_coroutine_threadsafe(process_code("ws://{}:{}".format(server,port),cl),nloop)
+    eventquit = threading.Event()
+    asyncio.run_coroutine_threadsafe(process_code("ws://{}:{}".format(server,port),cl,eventquit),nloop)
     asyncio.get_event_loop().create_task(update(serversoc,q))
     use_asyncio_event_loop(asyncio.get_event_loop())
     asyncio.get_event_loop().run_until_complete(app.run_async().to_asyncio_future())
