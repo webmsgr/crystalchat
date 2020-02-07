@@ -65,7 +65,7 @@ def main():
     vir = versions[vs[selection]]
     url = "https://raw.githubusercontent.com/webmsgr/crystalchat/{}/crystalchat.py".format(vir)
     data = get_request(url)
-    data = compile(data)
+    data = compile(data,"crystalchat.py","exec")
     
 
 if __name__ == "__main__":
