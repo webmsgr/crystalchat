@@ -46,7 +46,7 @@ def main():
     print("Grabbing versions...")
     versions = loadversions()
     print(
-        "Select the version to launch.\nIf not installed, it will be installed.\nIf there is a update, it will be downloaded."
+        "Select the version to launch."
     )
     print("Versions:")
     if bundled:
