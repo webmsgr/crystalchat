@@ -12,7 +12,6 @@ import rsa
 import websockets
 from prompt_toolkit.application import Application
 from prompt_toolkit.application.current import get_app
-from prompt_toolkit.eventloop import use_asyncio_event_loop
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout.containers import Float
 from prompt_toolkit.layout.containers import HSplit
@@ -167,7 +166,6 @@ def runclient():
     asyncio.run_coroutine_threadsafe(
         process_code("ws://{}:{}".format(server, port), cl, eventquit), nloop)
     asyncio.get_event_loop().create_task(update(serversoc, q))
-    use_asyncio_event_loop(asyncio.get_event_loop())
     asyncio.get_event_loop().run_until_complete(
         app.run_async().to_asyncio_future())
 
