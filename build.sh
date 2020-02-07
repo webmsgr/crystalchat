@@ -10,7 +10,7 @@ cp launcher.py pybuild/
 cd pybuild
 pyminifier --prepend=LICENSE -o crystalchat.py cchat.py
 pyminifier --prepend=LICENSE -o launcher_obf.py launcher.py
-pyinstaller launcher_obf.py -i icon.ico --name CrystalChat --onefile
+pyinstaller launcher_obf.py --hidden-import crystalchat -i icon.ico --name CrystalChat --onefile
 cd ..
 mkdir dist
 rm dist/*

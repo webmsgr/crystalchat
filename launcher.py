@@ -8,12 +8,13 @@ import urllib.request
 import zipfile
 
 try:
-    from crystalchat import main as cchatmain
+    from crystalchat import runclient as cchatmain
 
     bundled = True
-except ImportError:
+except ImportError as e:
     bundled = False
     cchatmain = None
+    raise e
 vurl = (
     "https://raw.githubusercontent.com/webmsgr/crystalchat4/master/autoupdate/versions"
 )
@@ -53,7 +54,7 @@ def main():
     selection = int(input(">")) - 1
     if selection == -1 and bundled:
         cchatmain()
-    else:
+    elif selection < 0 or selection >= len(versions):
         print("Invalid Version")
 
 
