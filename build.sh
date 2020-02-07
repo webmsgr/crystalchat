@@ -1,5 +1,6 @@
 pip3 install pyminifier
 pip3 install -r requirements.txt
+pip3 install pyinstaller
 mkdir pybuild
 rm pybuild/*
 cp server.py pybuild/
