@@ -28,3 +28,5 @@ jobs:
       run: |
         chmod +x build.sh
         ./build.sh
+        cd dist
+        echo 1 | ./CrystalChat
