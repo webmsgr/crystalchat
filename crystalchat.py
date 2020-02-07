@@ -8,6 +8,7 @@ from prompt_toolkit.shortcuts import yes_no_dialog, button_dialog, input_dialog,
 from prompt_toolkit.layout.layout import Layout
 from prompt_toolkit.patch_stdout import patch_stdout
 from prompt_toolkit.eventloop import use_asyncio_event_loop
+import rsa
 import os
 import websockets
 import threading
@@ -58,6 +59,8 @@ async def process_code(server,pipe):
                     pass
 # @TODO make the code good
 # @BODY as it is, the code is really bad, really bad.
+# @TODO public/private keys
+# @BODY basic auth would be nice, and sign messages to the server.
 @click.command()
 def runclient():
     nloop = asyncio.new_event_loop()
