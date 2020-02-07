@@ -134,7 +134,6 @@ def runclient():
     asyncio.get_event_loop().create_task(update(serversoc,q))
     use_asyncio_event_loop(asyncio.get_event_loop())
     asyncio.get_event_loop().run_until_complete(app.run_async().to_asyncio_future())
-    asyncio.get_event_loop().run_forever()
 if __name__ == "__main__":
     with patch_stdout():
         runclient()
