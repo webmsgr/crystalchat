@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "crystalchat4"
+name = "crystalchat"
 version = "0.1.0"
 description = "A chat program"
 authors = ["webmsgr <zapcontact000@gmail.com>"]
