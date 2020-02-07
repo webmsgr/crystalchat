@@ -51,15 +51,22 @@ def main():
     print("Versions:")
     if bundled:
         print("0) Bundled version (Does not update)")
+    vs = []
     for num, version in enumerate(versions):
         print("{}) {}".format(num + 1, version))
+        vs.append(version)
     selection = int(input(">")) - 1
     #selection = 0
     if selection == -1 and bundled:
         crystalchat.run()
     elif selection < 0 or selection >= len(versions):
         print("Invalid Version")
-
+        sys.exit(1)
+    vir = versions[vs[selection]]
+    url = "https://raw.githubusercontent.com/webmsgr/crystalchat/{}/crystalchat.py".format(vir)
+    data = get_request(url)
+    data = compile(data)
+    
 
 if __name__ == "__main__":
     main()
