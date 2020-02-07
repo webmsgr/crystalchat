@@ -29,7 +29,7 @@ from prompt_toolkit.widgets import (
 import sys
 def get_titlebar_text():
     return [
-        ("class:title", " CrystalChat4 "),
+        ("class:title", " CrystalChat "),
         ("class:title", " (Press [Control-Q] to quit) "),
     ]
 
@@ -64,10 +64,6 @@ async def process_code(server,pipe):
 @click.command()
 def runclient():
     nloop = asyncio.new_event_loop()
-    inpass = input_dialog("Passphrase","To access CrystalChat 4, enter the password provided.",password=True)
-    if inpass != "password":
-        message_dialog("Passphrase","Incorrect password.")
-        sys.exit(1)
     if os.path.exists("./server.conf") and yes_no_dialog("Server","Connect to last server?"):
         server = ""
         port = 42069
