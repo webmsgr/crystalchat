@@ -1,6 +1,7 @@
 [releases]
 dev=latest
 rel=0-1-5
+old=0-1-0
 
 [versions]
 latest=master
