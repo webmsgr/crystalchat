@@ -85,7 +85,7 @@ def main():
     with open("./versions/{}/cache".format(vir),"w") as fl:
         fl.write(rawdata)
     
-    
+    exec(data)
     
 
 if __name__ == "__main__":
