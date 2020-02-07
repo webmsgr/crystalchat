@@ -36,10 +36,18 @@ def loadversions():
 def main():
     print("Grabbing versions...")
     versions = loadversions()
+    print("Select the version to launch.\nIf not installed, it will be installed.\nIf there is a update, it will be downloaded.")
     print("Versions:")
+    if bundled:
+        print("0) Bundled version (Does not update)")
     for num,version in enumerate(versions):
-        print("{}) {}".format(num,version))
-        
+        print("{}) {}".format(num+1,version))
+    selection = int(input(">"))-1
+    if selection == -1 and bundled:
+        cchatmain()
+    else:
+        print("Invalid Version")
+    
         
 if __name__ == "__main__":
     main()
