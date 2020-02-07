@@ -69,14 +69,14 @@ def main():
     except:
         pass
     url = "https://raw.githubusercontent.com/webmsgr/crystalchat/{}/crystalchat.py".format(vir)
-    if vir in os.listdir("./versions") and vir != "master": # only use master (latest) cache if we cant connect
+    if os.listdir("./versions/{}/".format(vir)) != [] and vir != "master": # only use master (latest) cache if we cant connect
         with open("./versions/{}/cache".format(vir)) as fl:
             rawdata = fl.read()
     else:
         try:
             rawdata = get_request(url)
         except Exception as e:
-            if vir in os.listdir("./versions"):
+            if vir in os.listdir("./versions/{}/".format(vir)) != []:
                 with open("./versions/{}/cache".format(vir)) as fl:
                     rawdata = fl.read()
             else:
