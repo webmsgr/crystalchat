@@ -4,6 +4,7 @@ import configparser
 import shutil
 import tempfile
 import argparse
+import zipfile
 vurl = "https://raw.githubusercontent.com/webmsgr/crystalchat4/master/autoupdate/versions"
 def get_request(url):
     with urllib.request.urlopen(url) as response:
