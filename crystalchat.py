@@ -170,6 +170,8 @@ def runclient():
         app.run_async().to_asyncio_future())
 
 
-if __name__ == "__main__":
+def run():
     with patch_stdout():
         runclient()
+if __name__ == "__main__":
+    run()

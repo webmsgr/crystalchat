@@ -53,10 +53,10 @@ def main():
         print("0) Bundled version (Does not update)")
     for num, version in enumerate(versions):
         print("{}) {}".format(num + 1, version))
-    #selection = int(input(">")) - 1
-    selection = 0
+    selection = int(input(">")) - 1
+    #selection = 0
     if selection == -1 and bundled:
-        crystalchat.runclient()
+        crystalchat.run()
     elif selection < 0 or selection >= len(versions):
         print("Invalid Version")
 
