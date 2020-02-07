@@ -25,4 +25,4 @@ def loadversions():
         vmapping[item] = versions[item]
     for release in releases:
         vreleases[release] = vmapping.get(releases[item],"?")
-    return {x,vreleases[x] for x in vreleases if vreleases[x] != "?"}
+    return {x:vreleases[x] for x in vreleases if vreleases[x] != "?"}
