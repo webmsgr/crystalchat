@@ -15,7 +15,7 @@ try:
 except ImportError as e:
     bundled = False
     cchatmain = None
-    if hasattr(sys, "frozen", False):
+    if getattr(sys, "frozen", False):
         raise e
 vurl = (
     "https://raw.githubusercontent.com/webmsgr/crystalchat4/master/autoupdate/versions"
