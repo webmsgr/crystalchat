@@ -75,7 +75,7 @@ def main():
     else:
         try:
             rawdata = get_request(url)
-        except:
+        except Exception as e:
             if vir in os.listdir("./versions"):
                 with open("./versions/{}/cache".format(vir)) as fl:
                     rawdata = fl.read()
