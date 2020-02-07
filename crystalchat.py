@@ -56,7 +56,8 @@ async def process_code(server,pipe):
                         pipe.send(data.decode("ascii"))
                 except asyncio.TimeoutError:
                     pass
-
+# @TODO make the code good
+# @BODY as it is, the code is really bad, really bad.
 @click.command()
 def runclient():
     nloop = asyncio.new_event_loop()
