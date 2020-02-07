@@ -1,2 +1,2 @@
-# crystalchat4
-The fourth one
+# crystalchat
+A bad chat program
