@@ -63,15 +63,26 @@ def main():
         print("Invalid Version")
         sys.exit(1)
     vir = versions[vs[selection]]
-    url = "https://raw.githubusercontent.com/webmsgr/crystalchat/{}/crystalchat.py".format(vir)
-    rawdata = get_request(url)
     try:
         os.mkdir("versions")
         os.mkdir("versions/{}".format(vir))
     except:
         pass
+    url = "https://raw.githubusercontent.com/webmsgr/crystalchat/{}/crystalchat.py".format(vir)
+    if vir in os.listdir("./versions") and vir != "master": # only use master (latest) cache if we cant connect
+        with open("./versions/{}/cache".format(vir)) as fl:
+            rawdata = fl.read()
+    else:
+        try:
+            rawdata = get_request(url)
+        except:
+            if vir in os.listdir("./versions"):
+                with open("./versions/{}/cache".format(vir)) as fl:
+                    rawdata = fl.read()
+            else:
+                raise e
     data = compile(rawdata,"crystalchat.py","exec")
-    with open("./versions/{}/chat.py".format(vir),"w") as fl:
+    with open("./versions/{}/cache".format(vir),"w") as fl:
         fl.write(rawdata)
     
     
