@@ -9,7 +9,7 @@ import os
 vurl = "https://raw.githubusercontent.com/webmsgr/crystalchat4/master/autoupdate/versions"
 def get_request(url):
     with urllib.request.urlopen(url) as response:
-        return response.read()
+        return response.read().decode()
 
 def loadversions():
     vfile = get_request(vurl)
