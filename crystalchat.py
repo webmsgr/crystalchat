@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import click
+import configparser
 from prompt_toolkit.application import Application
 from prompt_toolkit.application.current import get_app
 from prompt_toolkit.key_binding import KeyBindings
@@ -64,10 +65,12 @@ async def process_code(server,pipe):
 # @BODY basic auth would be nice, and sign messages to the server.
 @click.command()
 def runclient():
+    parser = configparser.ConfigParser()
     nloop = asyncio.new_event_loop()
     if os.path.exists("./server.conf") and yes_no_dialog("Server","Connect to last server?"):
-        server = ""
-        port = 42069
+        parser.read("server.conf")
+        server = parser["server"]["server"]
+        port = str(int(parser["server"]["port"]))
     else:
         server = input_dialog("Server","Enter Server IP/Hostname:")
         port = input_dialog("Server","Enter Port:")
@@ -76,7 +79,11 @@ def runclient():
         except:
             message_dialog("Server","Invalid Port")
             sys.exit(1)
+        parser["server"]["server"] = server
+        parser["server"]["port"] = port
         # save the server conf to file
+    with open("server.conf","w") as cfile:
+        parser.write(cfile)
     # connect to server
     messages = TextArea("",read_only=True)
     mes = []
