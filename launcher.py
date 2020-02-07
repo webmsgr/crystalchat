@@ -84,8 +84,9 @@ def main():
     data = compile(rawdata,"crystalchat.py","exec")
     with open("./versions/{}/cache".format(vir),"w") as fl:
         fl.write(rawdata)
-    
+    os.chdir("./versions/{}/".format(vir))
     exec(data)
+    os.chdir("../..")
     
 
 if __name__ == "__main__":
