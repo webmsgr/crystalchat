@@ -1,7 +1,6 @@
 import click
 from prompt_toolkit.application import Application
 from prompt_toolkit.application.current import get_app
-from prompt_toolkit.buffer import Buffer
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout.containers import Float, HSplit, VSplit, Window, WindowAlign
 from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
@@ -78,8 +77,8 @@ def runclient():
     messages = TextArea("",read_only=True)
     mes = []
     q = queue.Queue()
-    def handle_message(buffer):
-        q.put(buffer.text)
+    def handle_message(buf):
+        q.put(buf.text)
     inputbox = TextArea(height=1,multiline=False,accept_handler=handle_message)
     msgbody = Frame(messages)
     body = HSplit([
