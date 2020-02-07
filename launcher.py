@@ -28,3 +28,16 @@ def loadversions():
     for release in releases:
         vreleases[release] = vmapping.get(releases[item],"?")
     return {x:vreleases[x] for x in vreleases if vreleases[x] != "?"}
+
+
+def main():
+    print("Grabbing versions...")
+    versions = loadversions()
+    print("Versions:")
+    for num,version in enumerate(versions):
+        print("{}) {}".format(num,version))
+        
+        
+if __name__ == "__main__":
+    main()
+              
