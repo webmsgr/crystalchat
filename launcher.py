@@ -9,15 +9,12 @@ import os
 vurl = "https://raw.githubusercontent.com/webmsgr/crystalchat4/master/autoupdate/versions"
 def get_request(url):
     with urllib.request.urlopen(url) as response:
-        tmp_file = tempfile.NamedTemporaryFile()
-        shutil.copyfileobj(response, tmp_file)
-        tmp_file.seek(0)
-        return tmp_file
+        return response.read()
 
 def loadversions():
     vfile = get_request(vurl)
     parser = configparser.ConfigParser()
-    parser.read_file(vfile)
+    parser.read_string(vfile)
     vmapping = {}
     vreleases = {}
     versions = parser["versions"]
