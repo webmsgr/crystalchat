@@ -19,7 +19,6 @@ def loadversions():
     vreleases = {}
     versions = parser["versions"]
     releases = parser["releases"]
-    vfile.close()
     for item in versions:
         vmapping[item] = versions[item]
     for release in releases:
