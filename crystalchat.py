@@ -5,7 +5,7 @@ from prompt_toolkit.application.current import get_app
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout.containers import Float, HSplit, VSplit, Window, WindowAlign
 from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
-from https://github.com/webmsgr/crystalchat/archive/138e2df392a89a8012fc1a86022e7223d9e75d8c.ziphttps://github.com/webmsgr/crystalchat/archive/138e2df392a89a8012fc1a86022e7223d9e75d8c.zipprompt_toolkit.shortcuts import yes_no_dialog, button_dialog, input_dialog, message_dialog
+from prompt_toolkit.shortcuts import yes_no_dialog, button_dialog, input_dialog, message_dialog
 from prompt_toolkit.layout.layout import Layout
 from prompt_toolkit.patch_stdout import patch_stdout
 from prompt_toolkit.eventloop import use_asyncio_event_loop
