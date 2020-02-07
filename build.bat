@@ -1,5 +1,6 @@
 @echo off
 pip3 install pyminifier
+pip3 install pyinstaller
 pip3 install -r requirements.txt
 mkdir pybuild
 rm pybuild/*
