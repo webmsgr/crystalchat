@@ -6,7 +6,7 @@ import queue
 import sys
 import threading
 from multiprocessing import Pipe
-
+import requests
 import click
 import rsa
 import websockets
@@ -35,11 +35,30 @@ from prompt_toolkit.widgets import Label
 from prompt_toolkit.widgets import ProgressBar
 from prompt_toolkit.widgets import RadioList
 from prompt_toolkit.widgets import TextArea
+import pkgutil
+from prompt_toolkit.eventloop import use_asyncio_event_loop
+#ENDREQ
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
 
+    return os.path.join(base_path, relative_path)
+
+tmp = configparser.ConfigParser()
+tmp.read(resource_path("autoupdate/versions"))
+try:
+    ver = int(tmp["version"]["latest"])
+except IndexError:
+    print("Unable to read version config file.")
+    sys.exit(1)
 def get_titlebar_text():
     return [
-        ("class:title", " CrystalChat "),
+        ("class:title", " CrystalChat v{}".format(ver)),
         ("class:title", " (Press [Control-Q] to quit) "),
     ]
 
@@ -53,7 +72,7 @@ def startloop(loop: asyncio.BaseEventLoop):
 # @BODY server is just a router. fix that plz
 
 
-async def process_code(server, pipe, qevent):
+async def process_code(server, pipe, qevent,isdis):
     with patch_stdout():
         do = True
         async with websockets.connect(server) as websocket:
@@ -73,6 +92,7 @@ async def process_code(server, pipe, qevent):
                         pipe.send(data.decode("ascii"))
                 except asyncio.TimeoutError:
                     pass
+        isdis.set()
 
 
 # @TODO make the code good
@@ -96,12 +116,19 @@ def runclient():
         except:
             message_dialog("Server", "Invalid Port")
             sys.exit(1)
+        parser["server"] = {}
         parser["server"]["server"] = server
         parser["server"]["port"] = port
         # save the server conf to file
     with open("server.conf", "w") as cfile:
         parser.write(cfile)
     # connect to server
+    nick = input_dialog("Nickname", "Enter a nickname:")
+    if nick is None:
+        nick = ""
+    banned = "/."
+    if any([x in banned for x in nick]):
+        message_dialog("Nickname", "Invalid nickname")
     messages = TextArea("", read_only=True)
     mes = []
     q = queue.Queue()
@@ -132,9 +159,11 @@ def runclient():
     def exitevent(event):
         q.put("!DISCONNECT")
         eventquit.set()
+        iscomplete.wait(1)
         event.app.exit()
         nloop.stop()
-        t.join()
+        myloop.stop()
+        
 
     app = Application(
         layout=Layout(root, focused_element=inputbox),
@@ -162,12 +191,17 @@ def runclient():
     t = threading.Thread(target=startloop, args=(nloop, ), daemon=True)
     t.start()
     serversoc, cl = Pipe()
+    iscomplete = threading.Event()
     eventquit = threading.Event()
+    myloop = asyncio.new_event_loop()
+    asyncio.set_event_loop(myloop)
+    use_asyncio_event_loop(myloop)
     asyncio.run_coroutine_threadsafe(
-        process_code("ws://{}:{}".format(server, port), cl, eventquit), nloop)
+        process_code("ws://{}:{}/{}".format(server, port,nick), cl, eventquit,iscomplete), nloop)
     asyncio.get_event_loop().create_task(update(serversoc, q))
     asyncio.get_event_loop().run_until_complete(
-        app.run_async().to_asyncio_future())
+        app.run_async())
+    myloop.run_forever()
 
 
 def run():

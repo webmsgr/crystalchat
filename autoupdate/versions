@@ -1,10 +1,3 @@
-[releases]
-dev=latest
-rel=0-1-5
-old=0-1-0
-
-[versions]
-latest=master
-0-1-5=36230b53ddb019e40af9c5b0e7449284dd718c06
-0-1-0=774b5111368ca996611f2117c1e0e3bc442a8899
+[version]
+latest=1
 

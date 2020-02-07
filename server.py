@@ -12,6 +12,8 @@ async def hello(websocket, path):
     myid = hashlib.new("md5")
     myid.update(websocket.remote_address[0].encode("ascii"))
     myid = myid.hexdigest().encode("ascii")
+    if path != "/":
+        myid += ("({})".format(path.split("/")[1])).encode("ascii")
     clients.append(websocket)
     if len(messages) < 10:
         for message in messages:

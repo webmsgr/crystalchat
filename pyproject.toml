@@ -11,6 +11,7 @@ prompt_toolkit = "^3.0.3"
 click = "^7.0"
 websockets = "^8.0"
 rsa = "^4.0"
+requests = "^2.22.0"
 [tool.poetry.dev-dependencies]
 
 [build-system]
