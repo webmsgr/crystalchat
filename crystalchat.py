@@ -31,11 +31,12 @@ def get_titlebar_text():
         ("class:title", " CrystalChat4 "),
         ("class:title", " (Press [Control-Q] to quit) "),
     ]
-# @TODO everything
 
 def startloop(loop: asyncio.BaseEventLoop):
     asyncio.set_event_loop(loop)
     loop.run_forever()
+# @TODO make server and client not a echo server
+# @BODY server is just a router. fix that plz
 async def process_code(server,pipe):
     with patch_stdout():
         do = True
