@@ -8,7 +8,7 @@ import urllib.request
 import zipfile
 
 try:
-    from crystalchat import runclient as cchatmain
+    import crystalchat
 
     bundled = True
 except ImportError as e:
@@ -51,9 +51,10 @@ def main():
         print("0) Bundled version (Does not update)")
     for num, version in enumerate(versions):
         print("{}) {}".format(num + 1, version))
-    selection = int(input(">")) - 1
+    #selection = int(input(">")) - 1
+    selection = 0
     if selection == -1 and bundled:
-        cchatmain()
+        crystalchat.runclient()
     elif selection < 0 or selection >= len(versions):
         print("Invalid Version")
 
