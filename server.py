@@ -1,8 +1,12 @@
 import asyncio
-import websockets
 import hashlib
+
+import websockets
+
 clients = []
 messages = []
+
+
 async def hello(websocket, path):
     print(path)
     myid = hashlib.new("md5")
@@ -28,7 +32,8 @@ async def hello(websocket, path):
     messages.append(myid + b" has left")
     for client in clients:
         await client.send(myid + b" has left")
-    
+
+
 start_server = websockets.serve(hello, "localhost", 42069)
 
 asyncio.get_event_loop().run_until_complete(start_server)
