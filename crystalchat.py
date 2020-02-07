@@ -117,6 +117,7 @@ def runclient():
         eventquit.set()
         event.app.exit()
         nloop.stop()
+        t.join()
     app = Application(
         layout=Layout(root,focused_element=inputbox),
     key_bindings=kb,
