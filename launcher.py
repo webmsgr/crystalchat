@@ -64,8 +64,17 @@ def main():
         sys.exit(1)
     vir = versions[vs[selection]]
     url = "https://raw.githubusercontent.com/webmsgr/crystalchat/{}/crystalchat.py".format(vir)
-    data = get_request(url)
-    data = compile(data,"crystalchat.py","exec")
+    rawdata = get_request(url)
+    try:
+        os.mkdir("versions")
+        os.mkdir("versions/{}".format(vir))
+    except:
+        pass
+    data = compile(rawdata,"crystalchat.py","exec")
+    with open("./versions/{}/chat.py".format(vir),"w") as fl:
+        fl.write(rawdata)
+    
+    
     
 
 if __name__ == "__main__":
