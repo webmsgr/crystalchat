@@ -3,6 +3,6 @@ dev=latest
 rel=0-1-0
 
 [versions]
-latest=master/latest
+latest=master
 0-1-0=774b5111368ca996611f2117c1e0e3bc442a8899
 
