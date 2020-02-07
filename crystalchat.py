@@ -46,6 +46,8 @@ async def process_code(server,pipe):
                     if data.upper() == "!DISCONNECT":
                         do = False
                         break
+                    if data.strip() == "":
+                        continue
                     await websocket.send(data.encode("ascii"))
                 try:
                     while True:

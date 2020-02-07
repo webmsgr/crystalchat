@@ -10,8 +10,8 @@ cp icon.ico pybuild/
 cd pybuild
 rm *_obf.py
 rm dist/*
-pyminifier --obfuscate-import-methods --obfuscate-functions --obfuscate-builtins --prepend=LICENSE -o crystalchat_obf.py crystalchat.py
-pyminifier --obfuscate-import-methods --obfuscate-functions --obfuscate-builtins --prepend=LICENSE -o server_obf.py server.py
+pyminifier --prepend=LICENSE -o crystalchat_obf.py crystalchat.py
+pyminifier --prepend=LICENSE -o server_obf.py server.py
 pyinstaller server_obf.py -i icon.ico --name CrystalChatServer --onefile
 pyinstaller crystalchat_obf.py -i icon.ico --name CrystalChat --onefile
 cd ..
