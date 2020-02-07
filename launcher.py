@@ -6,6 +6,13 @@ import tempfile
 import argparse
 import zipfile
 import os
+
+try:
+    from crystalchat import main as cchatmain
+    bundled = True
+except ImportError:
+    bundled = False
+    cchatmain = None
 vurl = "https://raw.githubusercontent.com/webmsgr/crystalchat4/master/autoupdate/versions"
 def get_request(url):
     with urllib.request.urlopen(url) as response:
