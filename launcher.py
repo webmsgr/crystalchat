@@ -6,6 +6,7 @@ import shutil
 import tempfile
 import urllib.request
 import zipfile
+import sys
 
 try:
     import crystalchat
@@ -14,7 +15,8 @@ try:
 except ImportError as e:
     bundled = False
     cchatmain = None
-    raise e
+    if hasattr(sys, "frozen", False):
+        raise e
 vurl = (
     "https://raw.githubusercontent.com/webmsgr/crystalchat4/master/autoupdate/versions"
 )
