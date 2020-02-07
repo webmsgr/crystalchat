@@ -8,8 +8,9 @@ import urllib.request
 import zipfile
 import sys
 
+
 try:
-    import crystalchat
+    from crystalchat import *
 
     bundled = True
 except ImportError as e:
@@ -58,7 +59,7 @@ def main():
     selection = int(input(">")) - 1
     #selection = 0
     if selection == -1 and bundled:
-        crystalchat.run()
+        run()
     elif selection < 0 or selection >= len(versions):
         print("Invalid Version")
         sys.exit(1)
@@ -81,11 +82,10 @@ def main():
                     rawdata = fl.read()
             else:
                 raise e
-    data = compile(rawdata,"crystalchat.py","exec")
     with open("./versions/{}/cache".format(vir),"w") as fl:
         fl.write(rawdata)
     os.chdir("./versions/{}/".format(vir))
-    exec(data)
+    exec(rawdata)
     os.chdir("../..")
     
 
