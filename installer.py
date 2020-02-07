@@ -7,7 +7,22 @@ import tempfile
 vurl = "https://raw.githubusercontent.com/webmsgr/crystalchat4/master/autoupdate/versions"
 def get_request(url):
     with urllib.request.urlopen(url) as response:
-        with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-            shutil.copyfileobj(response, tmp_file)
-    return tmp_file
+        tmp_file = tempfile.NamedTemporaryFile()
+        shutil.copyfileobj(response, tmp_file)
+        tmp_file.seek(0)
+        return tmp_file
 
+def loadversions():
+    vfile = get_request(vurl)
+    parser = configparser.ConfigParser()
+    parser.read_file(vfile)
+    vmapping = {}
+    vreleases = {}
+    versions = parser["versions"]
+    releases = parser["releases"]
+    vfile.close()
+    for item in versions:
+        vmapping[item] = versions[item]
+    for release in releases:
+        vreleases[release] = vmapping.get(releases[item],"?")
+    return {x,vreleases[x] for x in vreleases if vreleases[x] != "?"}
