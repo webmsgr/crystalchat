@@ -23,13 +23,19 @@ async def hello(websocket, path):
             await websocket.send(message)
     messages.append(myid + b" has joined")
     for client in clients:
-        await client.send(myid + b" has joined")
+        try:
+            await client.send(myid + b" has joined")
+        except:
+            clients.pop(clients.index(client))
     async for message in websocket:
         message = myid + b": " + message
         print(message)
         messages.append(message)
         for client in clients:
-            await client.send(message)
+            try:
+                await client.send(message)
+            except:
+                clients.pop(clients.index(client))
     clients.pop(clients.index(websocket))
     messages.append(myid + b" has left")
     for client in clients:
