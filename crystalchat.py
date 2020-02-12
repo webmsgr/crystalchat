@@ -71,12 +71,17 @@ def getkeys():
     haspub = "pubkey.key" in os.listdir("./keys")
     haspriv = "privkey.key" in os.listdir("./keys")
     if haspub and haspriv:
-        # read the keys
-    elif haspriv:
-        # regen public key from private
+        with open("./keys/pubkey.key","rb") as pubkeyfl:
+            pub = rsa.PublicKey.load_pkcs1(pubkeyfl.read())
+        with open("./keys/privkey.key","rb") as privkeyfl:
+            priv = rsa.PrivateKey.load_pkcs1(privkeyfl.read())
     else:
-        # generate and save new keys
-    return None 
+        (pub,priv) = rsa.newkeys(1024)
+        with open("./keys/pubkey.key","wb") as pubkeyfl:
+            pubkeyfl.write(pub.save_pkcs1())
+        with open("./keys/privkey.key","wb") as privkeyfl:
+            privkeyfl.write(priv.save_pkcs1())
+    return pub,priv 
 
 
 def startloop(loop: asyncio.BaseEventLoop):
