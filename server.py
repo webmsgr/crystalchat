@@ -121,7 +121,7 @@ def server(sobj, hostname, port):
     eventloop.run_forever()
 
 
-def start_server(hostname, port, sclass=TheServer):
+def startserver(hostname, port, sclass=TheServer):
     serverobj = sclass()
     sproc = mp.Process(target=server,
                        args=(serverobj, hostname, port),
