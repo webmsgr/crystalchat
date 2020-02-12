@@ -127,7 +127,9 @@ def startserver(hostname, port, sclass=TheServer):
                        args=(serverobj, hostname, port),
                        daemon=True)
     sproc.start()
-    sproc.join()
+    while sproc.is_alive():
+        serverobj.process_msg()
+        
 
 
 async def hello(websocket, path):
