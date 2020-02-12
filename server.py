@@ -66,7 +66,7 @@ class TheServer:
             self.clients.append(client)
             self.clientqueues.append(mp.Queue())
         self.clientlock.release()
-        return self.clid
+        return clid
 
     def remove_client(self, cid):  # called on client leave
         self.clientlock.acquire()
