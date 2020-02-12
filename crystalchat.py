@@ -65,7 +65,7 @@ def get_titlebar_text():
     ]
 
 
-def getkeys():
+def get_keys():
     if not os.path.exists("./keys"):
         os.mkdir("keys")
     haspub = "pubkey.key" in os.listdir("./keys")
@@ -122,6 +122,7 @@ async def process_code(server, pipe, qevent,isdis):
 # @BODY basic auth would be nice, and sign messages to the server.
 @click.command()
 def runclient():
+    pubkey,privkey = get_keys()
     parser = configparser.ConfigParser()
     nloop = asyncio.new_event_loop()
     if os.path.exists("./server.conf") and yes_no_dialog(
