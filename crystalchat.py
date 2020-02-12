@@ -65,6 +65,20 @@ def get_titlebar_text():
     ]
 
 
+def getkeys():
+    if not os.path.exists("./keys"):
+        os.mkdir("keys")
+    haspub = "pubkey.key" in os.listdir("./keys")
+    haspriv = "privkey.key" in os.listdir("./keys")
+    if haspub and haspriv:
+        # read the keys
+    elif haspriv:
+        # regen public key from private
+    else:
+        # generate and save new keys
+    return None 
+
+
 def startloop(loop: asyncio.BaseEventLoop):
     asyncio.set_event_loop(loop)
     loop.run_forever()
