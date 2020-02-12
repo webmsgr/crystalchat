@@ -181,11 +181,11 @@ def runclient():
     def exitevent(event):
         q.put("!DISCONNECT")
         eventquit.set()
-        iscomplete.wait(1)
         event.app.exit()
         nloop.stop()
         myloop.stop()
-        
+        iscomplete.wait(1)
+        sys.exit(0)
 
     app = Application(
         layout=Layout(root, focused_element=inputbox),
